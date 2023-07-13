@@ -12,6 +12,9 @@
         "moduleResolution": "node",
         //Для абсолютного импорта
         "baseUrl": ".",
+        "paths": {
+            "*": ["./src/*"],
+        },
         //Позволяет использовать commonjs как обычный import
         "esModuleInterop": true,
         //Вместо такого импорта import * as webpack from 'webpack'
