@@ -7,7 +7,27 @@ export function buildLoaders({isDev}: BuildOptions): webpack.RuleSetRule[] {
     const svgLoader = {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
-    }
+    };
+
+    const babelLoader =  {
+        test: /\.(js|ts|tsx)$/,
+        exclude: /node_modules/,
+        use: {
+            loader: "babel-loader",
+            options: {
+                presets: ['@babel/preset-env'],
+                plugins: [
+                    [
+                        "i18next-extract",
+                        {
+                            locales: ['ru', 'en'],
+                            keyAsDefaultValue: true,
+                        },
+                    ],
+                ],
+            },
+        },
+    };
 
     const cssLoader = {
         test: /\.s[ac]ss$/i,
@@ -22,7 +42,7 @@ export function buildLoaders({isDev}: BuildOptions): webpack.RuleSetRule[] {
                             ? '[path][name]__[local]--[hash:base64:5]'
                             : '[hash:base64:8]'
                     },
-                }
+                },
             },
             "sass-loader",
         ],
@@ -33,7 +53,7 @@ export function buildLoaders({isDev}: BuildOptions): webpack.RuleSetRule[] {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node-modules/,
-    }
+    };
 
     const fileLoader = {
         test: /\.(png|jpe?g|gif|woff2|woff)$/i,
@@ -42,12 +62,13 @@ export function buildLoaders({isDev}: BuildOptions): webpack.RuleSetRule[] {
                 loader: 'file-loader',
             },
         ],
-    }
+    };
 
     return [
         fileLoader,
         svgLoader,
+        babelLoader,
         typescriptLoader,
         cssLoader,
-    ]
-}
+    ];
+};
