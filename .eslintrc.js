@@ -41,6 +41,8 @@ module.exports = {
         'no-undef': 'off',
         'i18next/no-literal-string': ['warn', { markupOnly: true }],
         'max-len': ['error', { code: 100, ignoreComments: true }],
+        'arrow-body-style': 'off',
+        'react/self-closing-comp': 'off',
     },
     globals: {
         __IS_DEV__: true,
